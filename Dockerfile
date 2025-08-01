@@ -53,6 +53,11 @@ COPY --chmod=664 ./web/conf/defaults.json /usr/share/novnc
 COPY --chmod=664 ./web/conf/mandatory.json /usr/share/novnc
 COPY --chmod=744 ./web/conf/nginx.conf /etc/nginx/sites-enabled/web.conf
 
+#Add ttyd for remote access seial
+RUN TTYD_VERSION=$(curl -s https://api.github.com/repos/tsl0922/ttyd/releases/latest | jq -r .tag_name) && \
+    wget "https://github.com/tsl0922/ttyd/releases/download/${TTYD_VERSION}/ttyd.x86_64" -O /usr/bin/ttyd && \
+    chmod +x /usr/bin/ttyd
+
 VOLUME /storage
 EXPOSE 22 5900 8006
 

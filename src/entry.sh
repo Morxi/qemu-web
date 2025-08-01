@@ -23,4 +23,6 @@ trap - ERR
 version=$(qemu-system-x86_64 --version | head -n 1 | cut -d '(' -f 1 | awk '{ print $NF }')
 info "Booting image${BOOT_DESC} using QEMU v$version..."
 
+/usr/bin/ttyd telnet localhost 7100 &
+
 exec qemu-system-x86_64 ${ARGS:+ $ARGS}
